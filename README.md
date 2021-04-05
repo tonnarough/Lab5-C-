@@ -15,6 +15,52 @@
 В качестве оптимальной политики изменения темпа обучения была принята политика exp_decay с параметрами:
 * `initial_lrate = 0.01` - начальный темп обучения, `k = 0.3` - коэффициент наклона экспоненциальной кривой.
 
+Изменения в коде:
+```
+example['image'] = tf.image.resize(example['image'], tf.constant([235, 235])) #входное изображение 235х235
+```
+```
+def contrast(image, label):
+  return tf.image.adjust_contrast(image, 2.0), label
+
+
+def brightness(image, label):
+  return tf.image.adjust_brightness(image, delta=0.1), label
+  
+return tf.data.TFRecordDataset(filenames)\
+    .map(parse_proto_example, num_parallel_calls=tf.data.AUTOTUNE)\
+    .cache()\
+    .map(brightness)\
+    .map(contrast)\
+    .batch(batch_size)\
+    .prefetch(tf.data.AUTOTUNE)
+```
+```
+def exp_decay(epoch,lr):
+  initial_lrate = 0.01
+  k = 0.3
+  lrate = initial_lrate * math.exp(-k*epoch)
+  return lrate
+```
+
+```
+def build_model():
+  inputs = tf.keras.Input(shape=(235, 235, 3))
+  x = tf.keras.layers.GaussianNoise(stddev = 0.05)(inputs)
+  x = tf.keras.layers.experimental.preprocessing.RandomCrop(224,224)(x)
+  x = tf.keras.layers.experimental.preprocessing.RandomRotation(factor = 0.025)(x)
+  model = EfficientNetB0(input_tensor = x, include_top=False, pooling = 'avg', weights='imagenet')
+  model.trainable = False
+  x = tf.keras.layers.Flatten()(model.output)
+  outputs = tf.keras.layers.Dense(NUM_CLASSES, activation = tf.keras.activations.softmax)(x)
+  return tf.keras.Model(inputs=inputs, outputs=outputs)
+```
+
+
+
+
+
+
 
 
 
