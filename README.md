@@ -94,6 +94,25 @@ def unfreeze_model(model):
         if not isinstance(layer, tf.keras.layers.BatchNormalization):
             layer.trainable = True
 ```
+
+После цикла обучения с использованием техники Transfer Learning дополнительно реализуется цикл обучения с использованием техники Fine Tuning.
+```
+unfreeze_model(model)
+     
+  model.compile(
+    optimizer=tf.optimizers.Adam(lr=2e-8),
+    loss=tf.keras.losses.categorical_crossentropy,
+    metrics=[tf.keras.metrics.categorical_accuracy],
+  )
+  model.fit(
+    train_dataset,
+    epochs=20,
+    validation_data=validation_dataset,
+    callbacks=[
+      tf.keras.callbacks.TensorBoard(log_dir),
+    ]
+  )
+```
 График обучения для нейронной сети EfficientNetB0(предварительно обученной на базе изображений imagenet) дополнительно обученную с использованием техники Fine Tuning, предварительно обученную с использованием оптимальной политики изменения темпа обучения и аугментации данных с оптимальными настройками.
 ---
 ***Линейная диаграмма точности:***
