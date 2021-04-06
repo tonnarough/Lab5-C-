@@ -120,7 +120,7 @@ unfreeze_model(model)
 
 
 
-<img src="./epoch_categorical_before_unfreeze.svg">
+<img src="./epoch_categorical_accuracy_before_unfreeze.svg">
 
 ***Линейная диаграмма потерь, до разморозки слоев:*** 
 ![mcxdEJzkqnc](https://user-images.githubusercontent.com/58634989/113647277-33e5f700-9693-11eb-8384-d274076de878.jpg)
@@ -136,7 +136,7 @@ unfreeze_model(model)
 
 
 
-<img src="./epoch_categorical_unfreeze.svg">
+<img src="./epoch_categorical_accuracy_unfreeze.svg">
 
 ***Линейная диаграмма потерь, после разморозки слоев:*** 
 ![du3N8VXj314](https://user-images.githubusercontent.com/58634989/113647329-537d1f80-9693-11eb-9b26-58d0337b9325.jpg)
