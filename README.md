@@ -60,12 +60,21 @@ def build_model():
 ---
 
 ***Линейная диаграмма точности:***
+![Rft9bgqjZA4](https://user-images.githubusercontent.com/58634989/113641622-b0bea400-9686-11eb-8020-0075656e5f5d.jpg)
 
+<img src="./epoch_categorical_accuracy_all_in_one.svg">
 
 ***Линейная диаграмма потерь:*** 
+ ![CXjjxQdHHZg](https://user-images.githubusercontent.com/58634989/113641638-ba480c00-9686-11eb-8a33-84a824183e5d.jpg)
+
  
+ <img src="./epoch_loss_all_in_one.svg">
  
 ***Анализ результатов:*** 
+Исходя из графиков видно, что:
+* Сходится на 20 эпохе;
+* Метрика точности, на валидационном наборе данных, в конце обучения = ***89.25%***
+* Потери, на валидационном наборе данных, в конце обучения = ***0.277***
 
 2)С использованием техники обучения Fine Tuning дополнительно обучить нейронную сеть EfficientNet-B0 предварительно обученную в пункте 1.
 ---
@@ -86,7 +95,33 @@ def unfreeze_model(model):
             layer.trainable = True
 ```
 
+После цикла обучения с использованием техники Transfer Learning дополнительно реализуется цикл обучения с использованием техники Fine Tuning.
+```
+unfreeze_model(model)
+     
+  model.compile(
+    optimizer=tf.optimizers.Adam(lr=2e-8),
+    loss=tf.keras.losses.categorical_crossentropy,
+    metrics=[tf.keras.metrics.categorical_accuracy],
+  )
+  model.fit(
+    train_dataset,
+    epochs=20,
+    validation_data=validation_dataset,
+    callbacks=[
+      tf.keras.callbacks.TensorBoard(log_dir),
+    ]
+  )
+```
+График обучения для нейронной сети EfficientNetB0(предварительно обученной на базе изображений imagenet) дополнительно обученную с использованием техники Fine Tuning, предварительно обученную с использованием оптимальной политики изменения темпа обучения и аугментации данных с оптимальными настройками.
+---
+***Линейная диаграмма точности:***
 
+
+***Линейная диаграмма потерь:*** 
+ 
+ 
+***Анализ результатов:*** 
 
 
 
