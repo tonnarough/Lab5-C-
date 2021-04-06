@@ -115,12 +115,35 @@ unfreeze_model(model)
 ```
 График обучения для нейронной сети EfficientNetB0(предварительно обученной на базе изображений imagenet) дополнительно обученную с использованием техники Fine Tuning, предварительно обученную с использованием оптимальной политики изменения темпа обучения и аугментации данных с оптимальными настройками.
 ---
-***Линейная диаграмма точности:***
+***Линейная диаграмма точности, до разморозки слоев:***
+![3wXh1g8PRzM](https://user-images.githubusercontent.com/58634989/113647265-2e88ac80-9693-11eb-9748-a4f628f2b042.jpg)
 
 
-***Линейная диаграмма потерь:*** 
+
+<img src="./epoch_categorical_before_unfreeze.svg">
+
+***Линейная диаграмма потерь, до разморозки слоев:*** 
+![mcxdEJzkqnc](https://user-images.githubusercontent.com/58634989/113647277-33e5f700-9693-11eb-8384-d274076de878.jpg)
+
+
+
  
+ <img src="./epoch_loss_before_unfreeze.svg">
  
+ ***Линейная диаграмма точности, после разморозки слоев:***
+
+![fH9glRO8YvU](https://user-images.githubusercontent.com/58634989/113647319-4ceea800-9693-11eb-9b60-c69bffdafb23.jpg)
+
+
+
+<img src="./epoch_categorical_unfreeze.svg">
+
+***Линейная диаграмма потерь, после разморозки слоев:*** 
+![du3N8VXj314](https://user-images.githubusercontent.com/58634989/113647329-537d1f80-9693-11eb-9b26-58d0337b9325.jpg)
+
+
+<img src="./epoch_loss_unfreeze.svg">
+
 ***Анализ результатов:*** 
 
 
